@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Банка занятий — граф</title>
+  <script type="text/javascript" src="https://unpkg.com/vis-network@9.1.2/dist/vis-network.min.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-image: url('https://i.postimg.cc/FF6z9cQn/kubok-vozle-tkani-i-vetocki.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    .content {
+      text-align: center;
+      padding-top: 20vh;
+      backdrop-filter: blur(5px)
+    }
+
+    #mynetwork {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="mynetwork"></div>
+
+  <script>
+    const nodes = new vis.DataSet([
+      { id: 1, label: 'Эмоциональное развитие', shape: 'box', color: '#3B5998', font: {color: '#fff'} },
+      { id: 2, label: 'Творческое выражение', shape: 'box', color: '#8d77ab', font: {color: '#fff'} },
+      { id: 3, label: 'Интеллект и обучение', shape: 'box', color: '#5f356e', font: {color: '#fff'} },
+      { id: 4, label: 'Телесное здоровье', shape: 'box', color: '#009688', font: {color: '#fff'} },
+      { id: 5, label: 'Голос и аудио', shape: 'box', color: '#7B1FA2', font: {color: '#fff'} },
+      { id: 6, label: 'Планирование и визуализация', shape: 'box', color: '#303F9F', font: {color: '#fff'} },
+      { id: 101, label: 'Найти свою тёмную сторону.', color: '#7f7d82', font: {color: '#d8d3e0'} },
+      { id: 102, label: 'Внутренний совет директоров: кто там? Ведьма? Солдат?', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 103, label: 'Что для меня любовь?', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 104, label: 'Чем мешаю себе (5 пунктов).', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 106, label: 'Мини-рецензия на жизнь.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 107, label: 'Что для меня страх и как справляюсь?', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 108, label: 'Монолог перед зеркалом.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 109, label: 'План внутреннего убежища(нарисовать или описать).', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 110, label: 'Какой ты хочешь быть в отношениях? (с GPT)', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 111, label: 'Записать 3 самых частых мысли за день и обсудить с Лютцем.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 112, label: 'Оценить старое смс\заметку\гс.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 201, label: 'Антистресс-раскраска.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 202, label: 'Просто порисовать.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 203, label: 'Фото Pinterest — повтор.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 204, label: 'Нейрографика.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 205, label: 'Фигура-остров из бумаги - твой внутренний мир: что там?', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 206, label: 'Нарисовать VI POV.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 301, label: 'Прочитать старую статью из журнала.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 302, label: 'Биография великого человека + последние слова.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 303, label: 'Выучить пословицу на англ.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 304, label: 'Случайная строчка в книге - как пророчество.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 305, label: 'Научиться играть в нарды.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 306, label: 'Решить кроссворд/судоку.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 401, label: 'Массаж рук/ног.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 402, label: 'Сделать упражнение йоги.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 403, label: 'Выучить позу йоги.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 404, label: 'Сделать себе массаж.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 405, label: 'Фраза «Я здесь. Сейчас. Всё не так страшно»', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 501, label: 'ГС с добрыми словами/похвалой и переслушать через неделю', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 502, label: 'Запись гс себе/Тюрингии.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 503, label: '"Что мне сейчас нужно, но я боюсь это признать?" (гс)', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 601, label: 'Карта желаний.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 602, label: 'История о себе (роль).', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 603, label: 'Версия себя в странах/эпохах (GPT).', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 604, label: 'Версия во время 2/3 мировой (GPT): занятие, цель, внешность.', color: '#7f7d82', font: {color: '#d8d3e0' } },
+      { id: 605, label: 'Пополнить банку занятий.', color: '#7f7d82', font: {color: '#d8d3e0' } }
+    ]);
+
+    const edges = new vis.DataSet([
+      { from: 1, to: 101 }, { from: 1, to: 102 }, { from: 1, to: 103 }, { from: 1, to: 104 }, { from: 1, to: 105 },
+      { from: 1, to: 106 }, { from: 1, to: 107 }, { from: 1, to: 108 }, { from: 1, to: 109 }, { from: 1, to: 110 },
+      { from: 1, to: 111 }, { from: 1, to: 112 },
+      { from: 2, to: 201 }, { from: 2, to: 202 }, { from: 2, to: 203 }, { from: 2, to: 204 }, { from: 2, to: 205 },
+      { from: 2, to: 206 },
+      { from: 3, to: 301 }, { from: 3, to: 302 }, { from: 3, to: 303 }, { from: 3, to: 304 }, { from: 3, to: 305 },
+      { from: 3, to: 306 },
+      { from: 4, to: 401 }, { from: 4, to: 402 }, { from: 4, to: 403 }, { from: 4, to: 404 }, { from: 4, to: 405 },
+      { from: 5, to: 501 }, { from: 5, to: 502 }, { from: 5, to: 503 },
+      { from: 6, to: 601 }, { from: 6, to: 602 }, { from: 6, to: 603 }, { from: 6, to: 604 }, { from: 6, to: 605 }
+    ]);
+
+    const container = document.getElementById('mynetwork');
+    const data = { nodes, edges };
+    const options = {
+      nodes: {
+        shape: 'dot',
+        size: 12,
+        font: { size: 14 },
+        borderWidth: 1,
+        borderWidthSelected: 2
+      },
+      edges: {
+        color: '#e8dff5',
+        smooth: { enabled: true, type: 'cubicBezier', roundness: 0.5 }
+      },
+      physics: {
+        enabled: true,
+        stabilization: { iterations: 200 },
+        barnesHut: {
+          gravitationalConstant: -2000,
+          springLength: 120,
+          springConstant: 0.05,
+          damping: 0.09
+        }
+      },
+      interaction: {
+        hover: true,
+        tooltipDelay: 100
+      }
+    };
+
+    new vis.Network(container, data, options);
+  </script>
+</body>
+</html>
